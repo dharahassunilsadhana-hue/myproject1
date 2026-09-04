@@ -8,12 +8,14 @@ const dayAt=(o=0)=>{let d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+
 const SUBJECTS=[
   ['MAG','Mathematics'],['MAA','Mathematics'],['MAB','Mathematics'],
   ['FY','Physics'],['KE','Chemistry'],['BI','Biology'],['GE','Geography'],
-  ['HI','History'],['ENA','English'],['FIN','Finnish'],['RUA','Swedish'],['RUB','Swedish'],
-  ['MO','Swedish'],['FI','Philosophy'],['PS','Psychology'],['YH','Social studies'],
-  ['UE','Religion'],['ET','Ethics'],['TE','Health education'],['HÄ','Health education'],
-  ['LI','Physical education'],['GY','Physical education'],['MU','Music'],['KU','Visual arts'],
-  ['OP','Study guidance']
-];
+  ['HI','History'],['ENA','English'],['FINA','Finnish'],['FINB','Finnish'],['FIM','Finnish'],
+  ['RUA','Swedish'],['RUB','Swedish'],['MO','Swedish'],
+  ['FI','Philosophy'],['PS','Psychology'],['SL','Social studies'],['YH','Social studies'],
+  ['RE','Religion'],['UE','Religion'],['LK','Ethics'],['ET','Ethics'],
+  ['HÄ','Health education'],['TE','Health education'],['GY','Physical education'],['LI','Physical education'],
+  ['MU','Music'],['KO','Visual arts'],['KU','Visual arts'],
+  ['SPB','Spanish'],['TYB','German'],['FRB','French'],['TS','Theme studies'],['OP','Study guidance']
+]
 function codesFrom(v){return [...new Set((String(v||'').toUpperCase().match(/[A-ZÅÄÖ]{2,5}[O]?\d{1,3}(?:\.[A-Z0-9-]+)?/g)||[]).map(x=>x.replace(/[.,;:]$/,'')))]}
 function bareCode(c){return String(c||'').toUpperCase().replace(/\.[A-Z0-9-]+$/,'')}
 function family(c){let x=bareCode(c);for(let [p] of SUBJECTS)if(x.startsWith(p))return p;return ''}
