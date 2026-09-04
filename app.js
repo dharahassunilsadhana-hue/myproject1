@@ -47,7 +47,7 @@ function diffMinutes(a,b){return Math.max(1,Math.round((wallStamp(b)-wallStamp(a
 function dateUTC(k){let [y,m,d]=k.split('-').map(Number);return new Date(Date.UTC(y,m-1,d))}
 function dateKeyUTC(d){return d.toISOString().slice(0,10)}
 function dayDistance(a,b){return Math.round((dateUTC(a)-dateUTC(b))/86400000)}
-function feedWindow(url){let past=28,future=56;try{let u=new URL(url||'',location.href),p=Number(u.searchParams.get('p')),f=Number(u.searchParams.get('f'));if(Number.isFinite(p)&&p>=0)past=Math.min(p,180);if(Number.isFinite(f)&&f>=0)future=Math.min(f,366)}catch{}let today=iso(dayAt());return{today,past,future}}
+function feedWindow(url){let past=28,future=56;try{let u=new URL(url||location.href,location.href),ps=u.searchParams.get('p'),fs=u.searchParams.get('f');if(ps!==null){let p=Number(ps);if(Number.isFinite(p)&&p>=0)past=Math.min(p,180)}if(fs!==null){let f=Number(fs);if(Number.isFinite(f)&&f>=0)future=Math.min(f,366)}}catch{}let today=iso(dayAt());return{today,past,future}}
 function parseRule(s){let o={};String(s||'').split(';').filter(Boolean).forEach(x=>{let i=x.indexOf('=');if(i>0)o[x.slice(0,i).toUpperCase()]=x.slice(i+1)});return o}
 function makeOccurrence(base,start,end){return{uid:base.uid,rawSummary:base.rawSummary,name:base.name,code:base.code,room:base.room,start:start.time,end:end.time,date:start.date}}
 function parseICS(text,sourceUrl=''){let blocks=unfold(text).split('BEGIN:VEVENT').slice(1),masters=[],overrides=[],single=[],win=feedWindow(sourceUrl),today=win.today;
